@@ -3,14 +3,15 @@ import { Header } from './Layout/Header'
 import { Footer } from './Footer'
 import { SideBar } from './side-bar/SideBar'
 
-export const DefaultLayout = ({children}) => {
+export const UserLayout = ({children}) => {
   return (
-    <div >
-        
+    <div className='d-flex'>
+        <SideBar/>
+        <div>
         <Header/>
         <div className="main">{children}</div>
         <Footer/>
-       
+        </div>
         
     </div>
     

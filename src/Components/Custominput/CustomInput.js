@@ -11,4 +11,5 @@ export const CustomInput = ({lable, ...rest}) => {
         
       </Form.Group>
   )
-}
+} 
+export default CustomInput
