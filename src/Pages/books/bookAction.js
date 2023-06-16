@@ -1,7 +1,7 @@
 import { addDoc, collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore"
 import { toast } from "react-toastify"
 import { db } from "../../configuration/firebase-config"
-import { setBooks,  } from "./bookSlice"
+import { setBooks, setLandingBook,  } from "./bookSlice"
 import {setSelectedBook} from "./bookSlice"
 
 
@@ -34,7 +34,7 @@ export const updateBookAction = ({id, ...rest}) => async (dispatch) => {
         // add new documetn in the database
         await setDoc(doc(db, "books", id), rest, {merge: true})
         
-            toast.success("New book has been added successfully")
+            toast.success("The book has been updated successfully")
             dispatch(getAllBookAction())
         }
         
@@ -85,3 +85,22 @@ export const getBookAction  = (id) => async dispatch => {
         
     }
 }
+// export const getLandingBookAction  = (id) => async dispatch => {
+//     try {
+//         // const q = query(collection(db, "books"),where("id", "==", id))
+        
+//         const bookSnapshot = await getDoc(doc(db, "books", id))
+//         if (bookSnapshot.exists()){
+//             // extract the book data and mount in the store
+
+//             const data = bookSnapshot.data()
+         
+
+//             dispatch(setLandingBook({...data, id}))
+//         }
+       
+//     } catch (error) {
+//         console.log(error.message)
+        
+//     }
+// }

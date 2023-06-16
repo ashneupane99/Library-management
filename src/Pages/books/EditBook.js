@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { UserLayout } from '../../Components/UserLayout'
-import { updateBookAction, getBookAction } from './bookAction';
+import { updateBookAction, getBookAction, getAllBookAction } from './bookAction';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../configuration/firebase-config.js';
 import { toast } from 'react-toastify';
@@ -49,7 +49,8 @@ export const EditBook = () => {
                 if(window.confirm("Do you really want to delete?")){
                      await deleteDoc(doc(db, "books", id))
                     toast.success("Delete Successful")
-                    navigate("/books")
+                    dispatch(getAllBookAction());
+                    navigate("/books");
                 }
                 
             } catch (error) {

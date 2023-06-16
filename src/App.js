@@ -14,12 +14,20 @@ import { PrivateRoute } from './Components/private=route/PrivateRoute';
 import Books from './Pages/books/Books.js'
 import NewBook from './Pages/NewBook.js'
 import EditBook from './Pages/books/EditBook.js'
+import { useEffect } from 'react';
+import { getAllBookAction } from './Pages/books/bookAction';
+import BookLanding from './Pages/books/BookLanding';
+import BurrowHistory from './Pages/burrow-history/BurrowHistory';
 
 function App() {
   const dispatch = useDispatch()
   onAuthStateChanged(auth, (user)=>{
     user?.uid && dispatch(getUserAction(user.uid))
   })
+
+  useEffect(()=> {
+    dispatch(getAllBookAction())
+  },[dispatch])
   return (
     <div className="">
     <Routes>
@@ -29,14 +37,16 @@ function App() {
       <Route path="/" element={<Home/>} />
       <Route path="/signin" element={<Login/>} />
       <Route path="/signup" element={<PrivateRoute><SignUp/></PrivateRoute>} />
+      <Route path='book/:id' element= {<BookLanding/>}/>
       
       {/* private routers */}
       
       <Route path="/dashboard" element= {<PrivateRoute><Dashboard/></PrivateRoute> }/> 
     
     <Route path="/books" element= {<PrivateRoute><Books/></PrivateRoute> }/> 
+    <Route path='/history' element={<PrivateRoute> <BurrowHistory /></PrivateRoute>}/>
     <Route path="/new-book" element= {<PrivateRoute><NewBook/></PrivateRoute> }/> 
-    <Route path="/edit-book/:id" element= {<PrivateRoute><EditBook /></PrivateRoute> }/> 
+    <Route path="edit-book/:id" element= {<PrivateRoute><EditBook /></PrivateRoute> }/> 
     </Routes>
     <ToastContainer/>
     </div>
